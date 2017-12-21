@@ -23,7 +23,7 @@ using namespace boost::numeric::odeint;
 typedef vector< complex< double > > state_type;
 
 const double L_max = 150;
-const double L_inc = 0.001;
+const double L_inc = 0.01;
 const double C = 0.0211615;
 const double d = 0;
 const double QC = 1.85*0.25;
@@ -48,30 +48,6 @@ void FW( const state_type &x , state_type &dxdt , const double /* t */ )
     dxdt[2] = (-i*C*C*C*(4*QC)*(b-i*d)+1.0)*x[0] - C*C*4*QC*x[1] -i*C*(b-i*d)*x[2];
 }
 //]
-
-
-
-
-
-// //[ rhs_class
-// /* The rhs of x' = f(x) defined as a class */
-// class harm_osc {
-
-//     double m_gam;
-
-// public:
-//     harm_osc( double gam ) : m_gam(gam) { }
-
-//     void operator() ( const state_type &x , state_type &dxdt , const double /* t */ )
-//     {
-//         dxdt[0] = x[1];
-//         dxdt[1] = -x[0] - m_gam*x[1];
-//     }
-// };
-// //]
-
-
-
 
 
 //[ integrate_observer
@@ -114,31 +90,11 @@ int main(int /* argc */ , char** /* argv */ )
     x[2] = 1.0;
     //]
 
-
-
-    //[ integration
-    //   size_t steps = integrate( harmonic_oscillator ,
-    //        x , 0.0 , 10.0 , 0.1 );
-    //]
-
-
-
-    //[ integration_class
- //   harm_osc ho(0.15);
- //   steps = integrate( ho ,
- //           x , 0.0 , 10.0 , 0.1 );
-    //]
-
-
     //[ integrate_observ
     vector<state_type> x_vec;
     vector<double> times;
     vector<double> gain;
     
-//    steps = integrate( harmonic_oscillator ,
-//            x , 0.0 , 10.0 , 0.1 ,
-//            push_back_state_and_time( x_vec , times ) );
-
 
     //[ define_const_stepper
     runge_kutta4< state_type> stepper;
