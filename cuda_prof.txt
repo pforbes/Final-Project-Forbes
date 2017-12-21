@@ -1,0 +1,18 @@
+==1421== NVPROF is profiling process 1421, command: ./myODE_cuda_prof 128 128
+==1421== Generated result file: /srv/home/pforbes/Final-Project-Forbes/profile.out
+======== Profiling result:
+   Start  Duration            Grid Size      Block Size     Regs*    SSMem*    DSMem*      Size  Throughput  SrcMemType  DstMemType           Device   Context    Stream  Name
+     0ns  86.209us                    -               -         -         -         -  500.00KB  5.5312GB/s    Pageable      Device   Tesla K40c (0)         1         7  [CUDA memcpy HtoD]
+269.22us  85.729us                    -               -         -         -         -  500.00KB  5.5621GB/s    Pageable      Device   Tesla K40c (0)         1         7  [CUDA memcpy HtoD]
+367.14us  1.0880us                    -               -         -         -         -      604B  529.43MB/s    Pageable      Device   Tesla K40c (0)         1         7  [CUDA memcpy HtoD]
+424.81us     896ns                    -               -         -         -         -  0.9766MB  1064.4GB/s      Device           -   Tesla K40c (0)         1         7  [CUDA memset]
+447.46us     896ns                    -               -         -         -         -  500.00KB  532.18GB/s      Device           -   Tesla K40c (0)         1         7  [CUDA memset]
+648.94us  35.5270s           (1001 1 1)       (128 1 1)        63        0B        0B         -           -           -           -   Tesla K40c (0)         1         7  ODE_Kernel(float*, float*, float*, float*, double*, int, int) [123]
+35.5276s  89.377us                    -               -         -         -         -  500.00KB  5.3351GB/s      Device    Pageable   Tesla K40c (0)         1         7  [CUDA memcpy DtoH]
+35.5282s  155.30us                    -               -         -         -         -  0.9766MB  6.1410GB/s      Device    Pageable   Tesla K40c (0)         1         7  [CUDA memcpy DtoH]
+
+Regs: Number of registers used per CUDA thread. This number includes registers used internally by the CUDA driver and/or tools and can be more than what the compiler shows.
+SSMem: Static shared memory allocated per CUDA block.
+DSMem: Dynamic shared memory allocated per CUDA block.
+SrcMemType: The type of source memory accessed by memory operation/copy
+DstMemType: The type of destination memory accessed by memory operation/copy
