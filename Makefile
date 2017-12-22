@@ -21,15 +21,20 @@ debug : LDFLAGS := -fsanitize=address
 debug : ARCH :=
 debug : $(EXEC)
 
-all : problem1A problem3 problem2 
+all : myODE1 myODE_seq myODE_vec myODE_openMP myODE_cuda myODE_cuda_prof 
 
-problem1A: problem1A.cpp
-	g++ -fopenmp -fopt-info-vec -Wall -Wextra -Wsign-conversion -Wsign-compare -O3 -o problem1A problem1A.cpp --std=c++14
-
-problem3: problem3.cu
-	module load cuda;nvcc -o problem3 $(OPT) problem3.cu -ccbin $(BIN)
-problem2: problem2.cu
-	module load cuda;nvcc -o problem2 $(OPT) problem2.cu -ccbin $(BIN)
+myODE1: myODE1.cpp
+	g++ -O3 -o myODE1 myODE1.cpp --std=c++11
+myODE_seq: myODE_seq.cpp
+	g++ -O3 -o myODE_seq myODE_seq.cpp --std=c++11
+myODE_vec: myODE_seq.cpp
+	g++ -O3 -mavx -fopt-info-vec -o myODE_vec myODE_seq.cpp --std=c++11
+myODE_openMP: myODE_openMP.cpp
+	g++ -O3 -fopenmp -o myODE_openMP myODE_openMP.cpp --std=c++11
+myODE_cuda: myODE_cuda.cu
+	module load cuda;nvcc -o myODE_cuda $(OPT) myODE_cuda.cu -ccbin $(BIN)
+myODE_cuda_prof: myODE_cuda_prof.cu
+	module load cuda;nvcc -o myODE_cuda_prof $(OPT) myODE_cuda_prof.cu -ccbin $(BIN)
 # TODO: add targets for building executables
 
 
